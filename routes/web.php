@@ -44,17 +44,17 @@ Route::post('/create_profile', [ProfileController::class, 'createProfile'])->mid
 
 // admin routes
 
-Route::middleware('can:admin-access')->group(function () {
-  // get routes
-  Route::get('/admin', [AdminController::class, 'showAdminPage']);
-  Route::get('/user/{user}', [AdminController::class, 'showUserPage']);
-  Route::get('/user/{user}/edit', [AdminController::class, 'showEditUserPage']);
+// Route::middleware('can:admin-access')->group(function () {
+//   // get routes
+//   Route::get('/admin', [AdminController::class, 'showAdminPage']);
+//   Route::get('/user/{user}', [AdminController::class, 'showUserPage']);
+//   Route::get('/user/{user}/edit', [AdminController::class, 'showEditUserPage']);
 
-  // post, put, delete routes
-  Route::post('/create_user', [AdminController::class, 'createUser']);
-  Route::put('/user/{user}', [AdminController::class, 'editUser']);
-  Route::delete('/user/{user}', [AdminController::class, 'deleteUser']);
-});
+//   // post, put, delete routes
+//   Route::post('/create_user', [AdminController::class, 'createUser']);
+//   Route::put('/user/{user}', [AdminController::class, 'editUser']);
+//   Route::delete('/user/{user}', [AdminController::class, 'deleteUser']);
+// });
 
 
 

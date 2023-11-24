@@ -25,12 +25,6 @@ class ProfileController extends Controller
             // Store the file in the 'public/passports' directory
             $request->passport_photograph->storeAs('passports', $filename, 'public');
     
-            // $old_passport_photograph = $profile->passport_photograph;
-
-            // if ($old_passport_photograph != "/fallback-avatar.jpg") {
-            //     Storage::delete(str_replace("/storage/", "public/", $old_passport_photograph));
-            // }
-    
             return $filename;
         }  
     }

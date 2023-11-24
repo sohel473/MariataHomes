@@ -22,7 +22,7 @@
       <div class="row mb-3">
         <div class="col-lg-3 col-md-4 label">Date of Birth</div>
         <div class="col-lg-9 col-md-8">
-          {{ $date_of_birth }}
+          {{ date('d-m-Y', strtotime($date_of_birth)) }}
         </div>
       </div>
 

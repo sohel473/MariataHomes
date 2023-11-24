@@ -25,7 +25,6 @@
           <!-- Links or Actions -->
           <div class="mb-3">
             <a href="/edit-profile" class="btn btn-warning">Edit Profile</a>
-            <a href="/admin-dashboard" class="btn btn-success">Admin Dashboard</a>
           </div>
         </div>
       </div>

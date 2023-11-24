@@ -18,7 +18,8 @@
                 <!-- Username -->
                 <div class="col-12">
                   <label for="yourUsername" class="form-label">Username</label>
-                  <input type="text" name="username" class="form-control" id="yourUsername" required>
+                  <input type="text" value="{{ old('username') }}" name="username" class="form-control"
+                    id="yourUsername" required>
                   @error('username')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -26,7 +27,7 @@
                 <!-- Email -->
                 <div class="col-12">
                   <label for="yourEmail" class="form-label">Email</label>
-                  <input type="email" name="email" class="form-control" id="yourEmail">
+                  <input type="email" value="{{ old('email') }}" name="email" class="form-control" id="yourEmail">
                   @error('email')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
