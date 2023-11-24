@@ -40,7 +40,7 @@ Route::get('/create_profile', [ProfileController::class, 'showCreateProfilePage'
 Route::get('/profile', [ProfileController::class, 'showProfilePage'])->middleware(array('MustBeLoggedIn', 'MustCreateProfile'));
 
 // post routes
-Route::post('/create_profile', [ProfileController::class, 'createProfile'])->middleware(('MustBeLoggedIn'));
+Route::post('/create_profile', [ProfileController::class, 'createProfile'])->middleware(array('MustBeLoggedIn', 'PreventProfileRecreation'));
 
 
 // admin routes

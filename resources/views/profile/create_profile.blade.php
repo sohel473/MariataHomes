@@ -42,7 +42,7 @@
                 <!-- Telephone -->
                 <div class="col-12">
                   <label for="yourTelephone" class="form-label">Telephone</label>
-                  <input type="text" name="telephone" class="form-control" id="yourTelephone" required>
+                  <input type="text" name="telephone" class="form-control" id="yourTelephone">
                   @error('telephone')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -50,7 +50,7 @@
                 <!-- Next of Kin -->
                 <div class="col-12">
                   <label for="yourNextOfKin" class="form-label">Next of Kin</label>
-                  <input type="text" name="next_of_kin" class="form-control" id="yourNextOfKin" required>
+                  <input type="text" name="next_of_kin" class="form-control" id="yourNextOfKin">
                   @error('next_of_kin')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -67,7 +67,7 @@
                 <!-- Any Illness -->
                 <div class="col-12">
                   <label for="yourIllness" class="form-label">Any Illness</label>
-                  <input type="text" name="any_illness" class="form-control" id="yourIllness" required>
+                  <input type="text" name="any_illness" class="form-control" id="yourIllness">
                   @error('any_illness')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
@@ -75,8 +75,7 @@
                 <!-- Last Residence Address -->
                 <div class="col-12">
                   <label for="yourResidenceAddress" class="form-label">Last Residence Address</label>
-                  <input type="text" name="last_residence_address" class="form-control" id="yourResidenceAddress"
-                    required>
+                  <input type="text" name="last_residence_address" class="form-control" id="yourResidenceAddress">
                   @error('last_residence_address')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror

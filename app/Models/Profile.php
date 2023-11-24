@@ -26,6 +26,7 @@ class Profile extends Model
         'any_illness',
         'last_residence_address',
         'user_id',
+        'recommended_source_id',
     ];
 
     protected function passportPhotograph(): Attribute {

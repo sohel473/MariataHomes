@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->enum('source_type', ['police', 'prison', 'immigration']);
             $table->string('source_address');
-            $table->foreignId('profile_id');
             $table->timestamps();
         });
     }

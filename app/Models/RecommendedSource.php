@@ -12,7 +12,6 @@ class RecommendedSource extends Model
     protected $fillable = [
         'source_type',
         'source_address',
-        'profile_id',
     ];
 
     /**

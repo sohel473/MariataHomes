@@ -16,8 +16,15 @@ class PreventProfileRecreation
      */
     public function handle(Request $request, Closure $next): Response
     {   
-        if (Auth::check() && Auth::user()->profile) {
-            return redirect('/profile')->with('failure', 'You have already created a profile.');
+        if (Auth::check()) {
+            if (Auth::user()->role === 'admin') {
+                // Redirect admin users to a different route
+                return redirect('/profile')->with('failure', "Admins don't need profiles.");
+            }
+
+            if (Auth::user()->profile) {
+                return redirect('/profile')->with('failure', 'You have already created a profile.');
+            }
         }
         return $next($request);
     }
