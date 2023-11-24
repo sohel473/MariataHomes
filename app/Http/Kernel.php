@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'MustBeLoggedIn' => \App\Http\Middleware\MustBeLoggedIn::class,
         'MustCreateProfile' => \App\Http\Middleware\MustCreateProfile::class,
+        'PreventProfileRecreation' => \App\Http\Middleware\PreventProfileRecreation::class,
     ];
 }

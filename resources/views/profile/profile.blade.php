@@ -4,7 +4,7 @@
     <div class="col-lg-4 col-md-4">
       <div class="label">Passport Photograph</div>
       <div>
-        <img src="" alt="Passport Photograph" style="max-height: 100px;">
+        <img src={{ $passport_photograph }} alt="Passport Photograph" style="max-height: 250px;">
       </div>
     </div>
 
@@ -14,7 +14,7 @@
       <div class="row mb-3">
         <div class="col-lg-3 col-md-4 label">Full Name</div>
         <div class="col-lg-9 col-md-8">
-          some text
+          {{ $full_name }}
         </div>
       </div>
 
@@ -22,7 +22,7 @@
       <div class="row mb-3">
         <div class="col-lg-3 col-md-4 label">Date of Birth</div>
         <div class="col-lg-9 col-md-8">
-          some text
+          {{ $date_of_birth }}
         </div>
       </div>
 
@@ -30,7 +30,7 @@
       <div class="row mb-3">
         <div class="col-lg-3 col-md-4 label">Telephone</div>
         <div class="col-lg-9 col-md-8">
-          some text
+          {{ $telephone }}
         </div>
       </div>
 
@@ -38,7 +38,7 @@
       <div class="row mb-3">
         <div class="col-lg-3 col-md-4 label">Next of Kin</div>
         <div class="col-lg-9 col-md-8">
-          some text
+          {{ $next_of_kin }}
         </div>
       </div>
 
@@ -46,7 +46,7 @@
       <div class="row mb-3">
         <div class="col-lg-3 col-md-4 label">Age</div>
         <div class="col-lg-9 col-md-8">
-          some text
+          {{ $age }}
         </div>
       </div>
 
@@ -54,7 +54,7 @@
       <div class="row mb-3">
         <div class="col-lg-3 col-md-4 label">Any Illness</div>
         <div class="col-lg-9 col-md-8">
-          some text
+          {{ $illness }}
         </div>
       </div>
 
@@ -62,7 +62,7 @@
       <div class="row mb-3">
         <div class="col-lg-3 col-md-4 label">Last Residence Address</div>
         <div class="col-lg-9 col-md-8">
-          some text
+          {{ $last_residence_address }}
         </div>
       </div>
     </div>

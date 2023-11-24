@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Profile extends Model
 {
@@ -21,12 +22,19 @@ class Profile extends Model
         'date_of_birth',
         'telephone',
         'next_of_kin',
-        'age',
-        'recent_passport_photograph',
+        'passport_photograph',
         'any_illness',
         'last_residence_address',
         'user_id',
     ];
+
+    protected function passportPhotograph(): Attribute {
+        return Attribute::make(
+            get: function($value) {
+                return $value ? '/storage/passports/' . $value : '/default_pic.jpg';
+            }
+        );
+    }
 
     /**
      * The attributes that should be hidden for serialization.
@@ -54,4 +62,6 @@ class Profile extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    
 }

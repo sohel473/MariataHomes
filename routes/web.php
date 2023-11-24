@@ -32,11 +32,11 @@ Route::post('/logout', [UserController::class, 'logout'])->middleware(('MustBeLo
 // profile routes
 
 // get routes
-Route::get('/create_profile', [ProfileController::class, 'showCreateProfilePage'])->middleware(('MustBeLoggedIn'));
+Route::get('/create_profile', [ProfileController::class, 'showCreateProfilePage'])->middleware(array('MustBeLoggedIn', 'PreventProfileRecreation'));
 Route::get('/profile', [ProfileController::class, 'showProfilePage'])->middleware(array('MustBeLoggedIn', 'MustCreateProfile'));
 
 // post routes
-Route::post('/profile', [UserController::class, 'updateProfile'])->middleware(('MustBeLoggedIn'));
+Route::post('/create_profile', [ProfileController::class, 'createProfile'])->middleware(('MustBeLoggedIn'));
 
 
 // admin routes

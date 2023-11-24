@@ -19,8 +19,7 @@ return new class extends Migration
             $table->date('date_of_birth');
             $table->string('telephone');
             $table->string('next_of_kin');
-            $table->integer('age');
-            $table->string('recent_passport_photograph');
+            $table->string('passport_photograph');
             $table->string('any_illness');
             $table->string('last_residence_address');
             $table->timestamps();

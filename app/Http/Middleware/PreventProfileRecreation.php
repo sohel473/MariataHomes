@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class MustCreateProfile
+class PreventProfileRecreation
 {
     /**
      * Handle an incoming request.
@@ -15,9 +15,9 @@ class MustCreateProfile
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
-    {
-        if (Auth::check() && !Auth::user()->profile) {
-            return redirect('/create_profile')->with('failure', 'You must create a profile before you can continue.');
+    {   
+        if (Auth::check() && Auth::user()->profile) {
+            return redirect('/profile')->with('failure', 'You have already created a profile.');
         }
         return $next($request);
     }

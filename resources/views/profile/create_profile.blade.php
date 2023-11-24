@@ -13,7 +13,7 @@
               </div>
 
               <!-- Profile Creation Form -->
-              <form class="row g-3" method="POST" action="/create-profile">
+              <form class="row g-3" method="POST" action="/create_profile" enctype="multipart/form-data">
                 @csrf
                 <!-- First Name -->
                 <div class="col-12">
@@ -55,20 +55,12 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
-                <!-- Age -->
-                <div class="col-12">
-                  <label for="yourAge" class="form-label">Age</label>
-                  <input type="number" name="age" class="form-control" id="yourAge" required>
-                  @error('age')
-                    <span class="text-danger">{{ $message }}</span>
-                  @enderror
-                </div>
                 <!-- Recent Passport Photograph -->
                 <div class="col-12">
-                  <label for="yourPassportPhotograph" class="form-label">Passport Photograph</label>
-                  <input type="file" name="recent_passport_photograph" class="form-control-file"
-                    id="yourPassportPhotograph" required>
-                  @error('recent_passport_photograph')
+                  <label for="passportPhotograph" class="form-label">Passport Photograph</label>
+                  <input type="file" name="passport_photograph" class="form-control-file" id="passportPhotograph"
+                    required>
+                  @error('passport_photograph')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
