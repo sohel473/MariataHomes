@@ -30,7 +30,7 @@
             {{ auth()->user()->username }}
           </span>
           @can('admin-access')
-            <a href="#" class="btn btn-sm btn-success" title="Add User" data-toggle="tooltip" data-placement="bottom">
+            <a href="/admin" class="btn btn-sm btn-success" title="Add User" data-toggle="tooltip" data-placement="bottom">
               Admin Dashboard
             </a>
           @endcan
