@@ -26,6 +26,21 @@
         <div class="flex-row my-3 my-md-0">
           <a href="#" class="text-white mr-2 header-search-icon" title="Search" data-toggle="tooltip"
             data-placement="bottom"><i class="fas fa-search"></i></a>
+          <span class="mr-2">
+            {{ auth()->user()->username }}
+          </span>
+          @can('admin-access')
+            <a href="#" class="btn btn-sm btn-primary" title="Add User" data-toggle="tooltip" data-placement="bottom">
+              Add User
+            </a>
+            <a href="#" class="btn btn-sm btn-warning" title="Add User" data-toggle="tooltip" data-placement="bottom">
+              Add Admin
+            </a>
+            <a href="#" class="btn btn-sm btn-success" title="Add User" data-toggle="tooltip" data-placement="bottom">
+              Admin Dashboard
+            </a>
+          @endcan
+
           <form action="/logout" method="POST" class="d-inline">
             @csrf
             <button class="btn btn-sm btn-secondary">Sign Out</button>

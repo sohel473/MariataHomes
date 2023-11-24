@@ -16,7 +16,7 @@ class MustCreateProfile
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && !Auth::user()->profile) {
+        if (Auth::check() && Auth::user()->role == 'client' && !Auth::user()->profile) {
             return redirect('/create_profile')->with('failure', 'You must create a profile before you can continue.');
         }
         return $next($request);

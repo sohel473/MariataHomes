@@ -19,18 +19,21 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [UserController::class, 'showHomePage'])->middleware(('MustCreateProfile'));
 
 // user routes
-
 // get routes
-Route::get('/login', [UserController::class, 'loginPage']);
-Route::get('/register', [UserController::class, 'registerPage']);
+Route::middleware('guest')->group(function () {
+  Route::get('/login', [UserController::class, 'loginPage']);
+  Route::get('/register', [UserController::class, 'registerPage']);
+});
 
 // post routes
-Route::post('/login', [UserController::class, 'login']);
-Route::post('/register', [UserController::class, 'register']);
+
+Route::middleware('guest')->group(function () {
+  Route::post('/login', [UserController::class, 'login']);
+  Route::post('/register', [UserController::class, 'register']);
+});
 Route::post('/logout', [UserController::class, 'logout'])->middleware(('MustBeLoggedIn'));
 
 // profile routes
-
 // get routes
 Route::get('/create_profile', [ProfileController::class, 'showCreateProfilePage'])->middleware(array('MustBeLoggedIn', 'PreventProfileRecreation'));
 Route::get('/profile', [ProfileController::class, 'showProfilePage'])->middleware(array('MustBeLoggedIn', 'MustCreateProfile'));
@@ -40,15 +43,19 @@ Route::post('/create_profile', [ProfileController::class, 'createProfile'])->mid
 
 
 // admin routes
-// get routes
-Route::get('/admin', [AdminController::class, 'showAdminPage']);
-Route::get('/user/{user}', [AdminController::class, 'showUserPage']);
-Route::get('/user/{user}/edit', [AdminController::class, 'showEditUserPage']);
 
-// post, put, delete routes
-Route::post('/create_user', [AdminController::class, 'createUser']);
-Route::put('/user/{user}', [AdminController::class, 'editUser']);
-Route::delete('/user/{user}', [AdminController::class, 'deleteUser']);
+Route::middleware('can:admin-access')->group(function () {
+  // get routes
+  Route::get('/admin', [AdminController::class, 'showAdminPage']);
+  Route::get('/user/{user}', [AdminController::class, 'showUserPage']);
+  Route::get('/user/{user}/edit', [AdminController::class, 'showEditUserPage']);
+
+  // post, put, delete routes
+  Route::post('/create_user', [AdminController::class, 'createUser']);
+  Route::put('/user/{user}', [AdminController::class, 'editUser']);
+  Route::delete('/user/{user}', [AdminController::class, 'deleteUser']);
+});
+
 
 
 

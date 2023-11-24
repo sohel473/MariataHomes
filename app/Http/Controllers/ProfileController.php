@@ -36,22 +36,31 @@ class ProfileController extends Controller
     }
 
     public function showProfilePage() {
-        // Calculate age
-        $dob = new \DateTime(Auth::user()->profile->date_of_birth);
-        $now = new \DateTime();
-        $age = $now->diff($dob)->y;
-
-        return view('profile/profile', [
-            'full_name' => Auth::user()->profile->first_name . ' ' . Auth::user()->profile->last_name,
-            'date_of_birth' => Auth::user()->profile->date_of_birth,
-            'age' => $age,
-            'telephone' => Auth::user()->profile->telephone,
-            'next_of_kin' => Auth::user()->profile->next_of_kin,
-            'passport_photograph' => Auth::user()->profile->passport_photograph,
-            'illness' => Auth::user()->profile->any_illness,
-            'last_residence_address' => Auth::user()->profile->last_residence_address,
-        ]);
+        $user = Auth::user();
+        $profile = $user->profile;
+    
+        // Check if the profile is not null
+        if ($profile) {
+            // Calculate age
+            $dob = new \DateTime($profile->date_of_birth);
+            $now = new \DateTime();
+            $age = $now->diff($dob)->y;
+    
+            return view('profile/profile', [
+                'full_name' => $profile->first_name . ' ' . $profile->last_name,
+                'date_of_birth' => $profile->date_of_birth,
+                'age' => $age,
+                'telephone' => $profile->telephone,
+                'next_of_kin' => $profile->next_of_kin,
+                'passport_photograph' => $profile->passport_photograph,
+                'illness' => $profile->any_illness,
+                'last_residence_address' => $profile->last_residence_address,
+            ]);
+        } else {
+            return view('profile/admin_profile', ['user' => Auth::user()]);
+        }
     }
+    
 
     public function showCreateProfilePage() {
         return view('profile/create_profile');
