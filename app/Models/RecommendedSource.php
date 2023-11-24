@@ -14,4 +14,12 @@ class RecommendedSource extends Model
         'source_address',
         'profile_id',
     ];
+
+    /**
+     * Get the profile associated with the recommended source.
+     */
+    public function profiles()
+    {
+        return $this->hasMany(Profile::class);
+    }
 }

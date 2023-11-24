@@ -63,5 +63,9 @@ class Profile extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function recommendedSource()
+    {
+        return $this->belongsTo(RecommendedSource::class);
+    }
     
 }
