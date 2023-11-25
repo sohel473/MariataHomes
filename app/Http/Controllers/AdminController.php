@@ -78,5 +78,17 @@ class AdminController extends Controller
     public function showEditRecommendedSourcePage(RecommendedSource $recommended_source) {
         return view('admin/recommendedSourceForm', ['recommended_source' => $recommended_source]);
     }
+
+    public function showEditAdminUserPage(User $admin_user) {
+        return view('admin/adminUserForm', ['admin_user' => $admin_user]);
+    }
+
+    // public function showEditUserPage(User $user) {
+    //     $recommendedSources = RecommendedSource::all()->groupBy('source_type');
+    //     return view('admin/userForm', [
+    //         'user' => $user,
+    //         'recommendedSources' => $recommendedSources,
+    //     ]);
+    // }
     
 }

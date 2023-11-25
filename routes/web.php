@@ -63,11 +63,11 @@ Route::middleware('can:admin-access')->group(function () {
 
   // // post, put, delete routes
   Route::post('/create_user', [AdminController::class, 'createUser']);
-  Route::post('/create_admin_user', [AdminController::class, 'createAdminUser']);
+  Route::post('/create_admin_user', [AdminController::class, 'createAdminUser'])->name('admin_users.store');
   Route::post('/create_recommended_source', [AdminController::class, 'createRecommendedSource'])->name('recommended_sources.store');
 
   Route::put('/user/{user}', [AdminController::class, 'editUser']);
-  Route::put('/admin_user/{admin_user}', [AdminController::class, 'editAdminUser']);
+  Route::put('/admin_user/{admin_user}', [AdminController::class, 'editAdminUser'])->name('admin_users.update');
   Route::put('/recommended_source/{recommended_source}', [AdminController::class, 'editRecommendedSource'])->name('recommended_sources.update');
 
   Route::delete('/user/{user}', [AdminController::class, 'deleteUser']);
