@@ -65,6 +65,19 @@
           {{ $last_residence_address }}
         </div>
       </div>
+
+      <!-- Recommended Source Type -->
+      <div class="row mb-3">
+        <div class="col-lg-3 col-md-4 label">Recommended Source Type</div>
+        <div class="col-lg-9 col-md-8">{{ $recommended_source_type ?? 'Not Specified' }}</div>
+      </div>
+
+      <!-- Recommended Source Address -->
+      <div class="row mb-3">
+        <div class="col-lg-3 col-md-4 label">Recommended Source Address</div>
+        <div class="col-lg-9 col-md-8">{{ $recommended_source_address ?? 'Not Specified' }}</div>
+      </div>
+
     </div>
   </div>
 </x-layout>

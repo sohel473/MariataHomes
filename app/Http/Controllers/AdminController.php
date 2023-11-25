@@ -27,6 +27,10 @@ class AdminController extends Controller
         $now = new \DateTime();
         $age = $now->diff($dob)->y;
 
+        // Retrieve the recommendation source details
+        $recommendedSourceType = $user->profile->recommendedSource->source_type ?? null;
+        $recommendedSourceAddress = $user->profile->recommendedSource->source_address ?? null;
+
         return view('profile/profile', [
             'passport_photograph' => $user->profile->passport_photograph,
             'full_name' => $user->profile->first_name . ' ' . $user->profile->last_name,
@@ -36,6 +40,8 @@ class AdminController extends Controller
             'next_of_kin' => $user->profile->next_of_kin,
             'illness' => $user->profile->any_illness,
             'last_residence_address' => $user->profile->last_residence_address,
+            'recommended_source_type' => $recommendedSourceType,
+            'recommended_source_address' => $recommendedSourceAddress,
         ]);
     }
 
@@ -83,12 +89,27 @@ class AdminController extends Controller
         return view('admin/adminUserForm', ['admin_user' => $admin_user]);
     }
 
-    // public function showEditUserPage(User $user) {
-    //     $recommendedSources = RecommendedSource::all()->groupBy('source_type');
-    //     return view('admin/userForm', [
-    //         'user' => $user,
-    //         'recommendedSources' => $recommendedSources,
-    //     ]);
-    // }
+    public function showEditUserPage(User $user) {
+        $recommendedSources = RecommendedSource::all()->groupBy('source_type');
+    
+        $selectedSourceType = $user->profile->recommendedSource->source_type ?? null;
+
+        $selectedSourceAddress = $user->profile->recommendedSource->source_address ?? null;
+
+        // Retrieve the passport photograph URL
+        $passportPhotographUrl = $user->profile && $user->profile->passport_photograph
+        ? asset($user->profile->passport_photograph)
+        : null;
+
+    
+        return view('admin/userForm', [
+            'user' => $user,
+            'recommendedSources' => $recommendedSources,
+            'selectedSourceType' => $selectedSourceType,
+            'selectedSourceAddress' => $selectedSourceAddress,
+            'passportPhotographUrl' => $passportPhotographUrl,
+        ]);
+    }
+    
     
 }

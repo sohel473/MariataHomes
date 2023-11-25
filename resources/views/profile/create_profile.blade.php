@@ -137,10 +137,16 @@
   <script>
     const recommendedSources = @json($recommendedSources);
 
+
+
     document.getElementById('source_type').addEventListener('change', function() {
       const type = this.value;
       const addressSelect = document.getElementById('source_address');
       addressSelect.innerHTML = '<option value="">Select Address...</option>';
+
+      // console.log(recommendedSources);
+      // console.log(type);
+      // console.log(recommendedSources[type]);
 
       if (recommendedSources[type]) {
         recommendedSources[type].forEach(source => {
