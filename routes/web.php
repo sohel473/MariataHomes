@@ -44,17 +44,35 @@ Route::post('/create_profile', [ProfileController::class, 'createProfile'])->mid
 
 
 // admin routes
-
 Route::middleware('can:admin-access')->group(function () {
   // get routes
+  // admin routes
   Route::get('/admin', [AdminController::class, 'showAdminPage']);
-  // Route::get('/user/{user}', [AdminController::class, 'showUserPage']);
-  // Route::get('/user/{user}/edit', [AdminController::class, 'showEditUserPage']);
+  // users routes
+  Route::get('/create_user', [AdminController::class, 'showCreateUserPage']);
+  Route::get('/users/{user}', [AdminController::class, 'showUserPage']);
+  Route::get('/users/{user}/edit', [AdminController::class, 'showEditUserPage']);
+  // admin users routes
+  Route::get('/create_admin_user', [AdminController::class, 'showCreateAdminUserPage']);
+  Route::get('/admin_users/{admin_user}', [AdminController::class, 'showAdminUserPage']);
+  Route::get('/admin_users/{admin_user}/edit', [AdminController::class, 'showEditAdminUserPage']);
+  // recommended sources routes
+  Route::get('/create_recommended_source', [AdminController::class, 'showCreateRecommendedSourcePage']);
+  Route::get('/recommended_sources/{recommended_source}', [AdminController::class, 'showRecommendedSourcePage']);
+  Route::get('/recommended_sources/{recommended_source}/edit', [AdminController::class, 'showEditRecommendedSourcePage']);
 
   // // post, put, delete routes
-  // Route::post('/create_user', [AdminController::class, 'createUser']);
-  // Route::put('/user/{user}', [AdminController::class, 'editUser']);
-  // Route::delete('/user/{user}', [AdminController::class, 'deleteUser']);
+  Route::post('/create_user', [AdminController::class, 'createUser']);
+  Route::post('/create_admin_user', [AdminController::class, 'createAdminUser']);
+  Route::post('/create_recommended_source', [AdminController::class, 'createRecommendedSource']);
+
+  Route::put('/user/{user}', [AdminController::class, 'editUser']);
+  Route::put('/admin_user/{admin_user}', [AdminController::class, 'editAdminUser']);
+  Route::put('/recommended_source/{recommended_source}', [AdminController::class, 'editRecommendedSource']);
+
+  Route::delete('/user/{user}', [AdminController::class, 'deleteUser']);
+  Route::delete('/admin_user/{admin_user}', [AdminController::class, 'deleteAdminUser']);
+  Route::delete('/recommended_source/{recommended_source}', [AdminController::class, 'deleteRecommendedSource']);
 });
 
 

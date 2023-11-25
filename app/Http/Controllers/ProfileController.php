@@ -65,11 +65,11 @@ class ProfileController extends Controller
             'first_name' => ['required', 'min:3', 'max:255'],
             'last_name' => ['required', 'min:3', 'max:255'],
             'date_of_birth' => ['required', 'date'],
-            'telephone' => ['min:10', 'max:15'],
-            'next_of_kin' => ['min:3', 'max:255'],
+            'telephone' => ['max:15'],
+            'next_of_kin' => ['max:255'],
             'passport_photograph' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:1024',
             'any_illness' => ['max:255'],
-            'last_residence_address' => ['min:3', 'max:255'],
+            'last_residence_address' => ['max:255'],
         ]);
 
         /** @var \App\Models\User $user **/

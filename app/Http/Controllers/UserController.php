@@ -25,7 +25,7 @@ class UserController extends Controller
     public function register(Request $request) {
         $request->validate([
             'username' => ['required', 'min:3', 'max:255', Rule::unique('users', 'username')],
-            'email' => [Rule::unique('users', 'email')],
+            'email' => ['max:255'],
             'password' => ['required', 'min:6', 'max:255', 'confirmed'],
         ]);
 
