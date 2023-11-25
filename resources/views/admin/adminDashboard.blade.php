@@ -119,14 +119,12 @@
             <div class="list-group">
               @foreach ($recommended_sources as $recommended_source)
                 <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                  <div>
-                    <strong style="color: blue;">{{ $recommended_source->source_address }}</strong>
+                  <div style="flex: 1; min-width: 0;">
+                    <strong style="color: blue; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                      {{ $recommended_source->source_address }}
+                    </strong> Type: {{ $recommended_source->source_type }}
                   </div>
-                  <div>
-                    {{-- <a href="/recommended_source/{{ $recommended_source->id }}" class="text-info me-2"
-                      data-toggle="tooltip" data-placement="top" title="View">
-                      <i class="fa-solid fa-eye"></i>
-                    </a> --}}
+                  <div class="icon-container" style="flex-shrink: 0;">
                     <a href="/recommended_source/{{ $recommended_source->id }}/edit" class="text-primary me-2"
                       data-toggle="tooltip" data-placement="top" title="Edit">
                       <i class="fa-solid fa-pen-to-square"></i>
@@ -145,11 +143,4 @@
     </div>
 
   </div>
-
-  <!-- Initialize tooltips -->
-  <script>
-    $(function() {
-      $('[data-toggle="tooltip"]').tooltip();
-    });
-  </script>
 </x-layout>

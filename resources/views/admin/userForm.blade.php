@@ -43,6 +43,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Last Name -->
                 <div class="col-12">
                   <label for="last_name" class="form-label">Last Name</label>
@@ -52,6 +53,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Date of Birth -->
                 <div class="col-12">
                   <label for="date_of_birth" class="form-label">Date of Birth</label>
@@ -61,6 +63,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Telephone -->
                 <div class="col-12">
                   <label for="telephone" class="form-label">Telephone</label>
@@ -70,6 +73,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Next of Kin -->
                 <div class="col-12">
                   <label for="next_of_kin" class="form-label">Next of Kin</label>
@@ -79,6 +83,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Passport Photograph -->
                 <div class="col-12">
                   <label for="passport_photograph" class="form-label">Passport Photograph</label>
@@ -88,6 +93,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Any Illness -->
                 <div class="col-12">
                   <label for="any_illness" class="form-label">Any Illness</label>
@@ -97,6 +103,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Last Residence Address -->
                 <div class="col-12">
                   <label for="last_residence_address" class="form-label">Last Residence Address</label>
@@ -126,11 +133,7 @@
                   <label for="source_address" class="form-label">Recommended Source Address</label>
                   <select name="source_address" class="form-control" id="source_address">
                     <option value="">Select Address...</option>
-                    {{-- @foreach ($source_addresses as $address)
-                      <option value="{{ $address }}" {{ old('source_address') == $address ? 'selected' : '' }}>
-                        {{ $address }}
-                      </option>
-                    @endforeach --}}
+                    <!-- Options will be populated by JavaScript -->
                   </select>
                   @error('source_address')
                     <span class="text-danger">{{ $message }}</span>
@@ -149,4 +152,25 @@
       </div>
     </div>
   </section>
+
+
+  <!-- JavaScript to update source_address options -->
+  <script>
+    const recommendedSources = @json($recommendedSources);
+
+    document.getElementById('source_type').addEventListener('change', function() {
+      const type = this.value;
+      const addressSelect = document.getElementById('source_address');
+      addressSelect.innerHTML = '<option value="">Select Address...</option>';
+
+      if (recommendedSources[type]) {
+        recommendedSources[type].forEach(source => {
+          const option = document.createElement('option');
+          option.value = source.source_address;
+          option.textContent = source.source_address;
+          addressSelect.appendChild(option);
+        });
+      }
+    });
+  </script>
 </x-layout>

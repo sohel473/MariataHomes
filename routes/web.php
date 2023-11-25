@@ -33,7 +33,7 @@ Route::middleware('guest')->group(function () {
 // auth routes
 Route::middleware(('MustBeLoggedIn'))->group(function () {
   Route::post('/logout', [UserController::class, 'logout']);
-  
+
   // profile routes
   // get routes
   Route::get('/create_profile', [ProfileController::class, 'showCreateProfilePage'])->middleware('PreventProfileRecreation');
@@ -58,17 +58,17 @@ Route::middleware('can:admin-access')->group(function () {
   Route::get('/admin_user/{admin_user}/edit', [AdminController::class, 'showEditAdminUserPage']);
   // recommended sources routes
   Route::get('/create_recommended_source', [AdminController::class, 'showCreateRecommendedSourcePage']);
-  Route::get('/recommended_source/{recommended_source}', [AdminController::class, 'showRecommendedSourcePage']);
+  Route::get('/recommended_source/{recommended_source}', [AdminController::class, 'showEditRecommendedSourcePage']);
   Route::get('/recommended_source/{recommended_source}/edit', [AdminController::class, 'showEditRecommendedSourcePage']);
 
   // // post, put, delete routes
   Route::post('/create_user', [AdminController::class, 'createUser']);
   Route::post('/create_admin_user', [AdminController::class, 'createAdminUser']);
-  Route::post('/create_recommended_source', [AdminController::class, 'createRecommendedSource']);
+  Route::post('/create_recommended_source', [AdminController::class, 'createRecommendedSource'])->name('recommended_sources.store');
 
   Route::put('/user/{user}', [AdminController::class, 'editUser']);
   Route::put('/admin_user/{admin_user}', [AdminController::class, 'editAdminUser']);
-  Route::put('/recommended_source/{recommended_source}', [AdminController::class, 'editRecommendedSource']);
+  Route::put('/recommended_source/{recommended_source}', [AdminController::class, 'editRecommendedSource'])->name('recommended_sources.update');
 
   Route::delete('/user/{user}', [AdminController::class, 'deleteUser']);
   Route::delete('/admin_user/{admin_user}', [AdminController::class, 'deleteAdminUser']);

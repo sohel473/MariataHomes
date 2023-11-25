@@ -9,7 +9,7 @@ class AdminController extends Controller
 {
     public function showAdminPage() {
         // Get all clients
-        $clients = User::where('role', 'client')->get();
+        $clients = User::where('role', 'client')->whereHas('profile')->get();
         // get all admins
         $admins = User::where('role', 'admin')->get();
         // get all recommended sources
@@ -44,7 +44,10 @@ class AdminController extends Controller
     }
 
     public function showCreateUserPage() {
-        return view('admin/userForm');
+        $recommendedSources = RecommendedSource::all()->groupBy('source_type');
+        return view('admin/userForm',[
+            'recommendedSources' => $recommendedSources,
+        ]);
     }
 
     public function showCreateAdminUserPage() {
@@ -70,6 +73,10 @@ class AdminController extends Controller
     
         // Redirect to back with success message
         return redirect('/admin')->with('success', 'Recommended Source created successfully.');
+    }
+
+    public function showEditRecommendedSourcePage(RecommendedSource $recommended_source) {
+        return view('admin/recommendedSourceForm', ['recommended_source' => $recommended_source]);
     }
     
 }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RecommendedSource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -57,7 +58,10 @@ class ProfileController extends Controller
     
 
     public function showCreateProfilePage() {
-        return view('profile/create_profile');
+        $recommendedSources = RecommendedSource::all()->groupBy('source_type');
+        return view('profile/create_profile', [
+            'recommendedSources' => $recommendedSources,
+        ]);
     }
 
     public function createProfile(Request $request) {

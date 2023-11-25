@@ -15,6 +15,7 @@
               <!-- Profile Creation Form -->
               <form class="row g-3" method="POST" action="/create_profile" enctype="multipart/form-data">
                 @csrf
+
                 <!-- First Name -->
                 <div class="col-12">
                   <label for="yourFirstName" class="form-label">First Name</label>
@@ -24,6 +25,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Last Name -->
                 <div class="col-12">
                   <label for="yourLastName" class="form-label">Last Name</label>
@@ -33,6 +35,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Date of Birth -->
                 <div class="col-12">
                   <label for="yourDateOfBirth" class="form-label">Date of Birth</label>
@@ -42,6 +45,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Telephone -->
                 <div class="col-12">
                   <label for="yourTelephone" class="form-label">Telephone</label>
@@ -51,6 +55,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Next of Kin -->
                 <div class="col-12">
                   <label for="yourNextOfKin" class="form-label">Next of Kin</label>
@@ -60,6 +65,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Recent Passport Photograph -->
                 <div class="col-12">
                   <label for="passportPhotograph" class="form-label">Passport Photograph</label>
@@ -69,6 +75,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Any Illness -->
                 <div class="col-12">
                   <label for="yourIllness" class="form-label">Any Illness</label>
@@ -78,6 +85,7 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Last Residence Address -->
                 <div class="col-12">
                   <label for="yourResidenceAddress" class="form-label">Last Residence Address</label>
@@ -87,6 +95,33 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
+                <!-- Recommended Source Type -->
+                <div class="col-12">
+                  <label for="source_type" class="form-label">Recommended Source Type</label>
+                  <select name="source_type" class="form-control" id="source_type">
+                    <option value="">Choose...</option>
+                    <option value="police">Police</option>
+                    <option value="prison">Prison</option>
+                    <option value="immigration">Immigration</option>
+                  </select>
+                  @error('source_type')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                </div>
+
+                <!-- Recommended Source Address -->
+                <div class="col-12">
+                  <label for="source_address" class="form-label">Recommended Source Address</label>
+                  <select name="source_address" class="form-control" id="source_address">
+                    <option value="">Select Address...</option>
+                    <!-- Options will be populated by JavaScript -->
+                  </select>
+                  @error('source_address')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                </div>
+
                 <!-- Submit Button -->
                 <div class="col-12 mt-3">
                   <button class="btn btn-primary w-100" type="submit">Create Profile</button>
@@ -98,4 +133,24 @@
       </div>
     </div>
   </section>
+  <!-- JavaScript to update source_address options -->
+  <script>
+    const recommendedSources = @json($recommendedSources);
+
+    document.getElementById('source_type').addEventListener('change', function() {
+      const type = this.value;
+      const addressSelect = document.getElementById('source_address');
+      addressSelect.innerHTML = '<option value="">Select Address...</option>';
+
+      if (recommendedSources[type]) {
+        recommendedSources[type].forEach(source => {
+          const option = document.createElement('option');
+          option.value = source.source_address;
+          option.textContent = source.source_address;
+          addressSelect.appendChild(option);
+        });
+      }
+    });
+  </script>
+
 </x-layout>
