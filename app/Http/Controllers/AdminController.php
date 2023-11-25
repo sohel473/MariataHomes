@@ -27,7 +27,7 @@ class AdminController extends Controller
         $now = new \DateTime();
         $age = $now->diff($dob)->y;
 
-        return view('admin/userProfile', [
+        return view('profile/profile', [
             'passport_photograph' => $user->profile->passport_photograph,
             'full_name' => $user->profile->first_name . ' ' . $user->profile->last_name,
             'date_of_birth' => $user->profile->date_of_birth,
@@ -37,6 +37,10 @@ class AdminController extends Controller
             'illness' => $user->profile->any_illness,
             'last_residence_address' => $user->profile->last_residence_address,
         ]);
+    }
+
+    public function showAdminUserPage(User $admin_user) {
+        return view('profile/admin_profile', ['user' => $admin_user]);
     }
 
     public function showCreateUserPage() {

@@ -52,15 +52,15 @@
                     {{ $client->created_at->format('n/j/Y') }}
                   </div>
                   <div>
-                    <a href="/users/{{ $client->id }}/edit" class="text-info me-2" data-toggle="tooltip"
+                    <a href="/user/{{ $client->id }}" class="text-info me-2" data-toggle="tooltip"
                       data-placement="top" title="View">
                       <i class="fa-solid fa-eye"></i>
                     </a>
-                    <a href="/users/{{ $client->id }}/edit" class="text-primary me-2" data-toggle="tooltip"
+                    <a href="/user/{{ $client->id }}/edit" class="text-primary me-2" data-toggle="tooltip"
                       data-placement="top" title="Edit">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-                    <a href="/users/{{ $client->id }}/delete" class="text-danger" data-toggle="tooltip"
+                    <a href="/user/{{ $client->id }}/delete" class="text-danger" data-toggle="tooltip"
                       data-placement="top" title="Delete">
                       <i class="fa-solid fa-trash"></i>
                     </a>
@@ -88,15 +88,15 @@
                     {{ $admin->created_at->format('n/j/Y') }}
                   </div>
                   <div>
-                    <a href="/admins/{{ $admin->id }}/edit" class="text-info me-2" data-toggle="tooltip"
+                    <a href="/admin_user/{{ $admin->id }}" class="text-info me-2" data-toggle="tooltip"
                       data-placement="top" title="View">
                       <i class="fa-solid fa-eye"></i>
                     </a>
-                    <a href="/admins/{{ $admin->id }}/edit" class="text-primary me-2" data-toggle="tooltip"
+                    <a href="/admin_user/{{ $admin->id }}/edit" class="text-primary me-2" data-toggle="tooltip"
                       data-placement="top" title="Edit">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-                    <a href="/admins/{{ $admin->id }}/delete" class="text-danger" data-toggle="tooltip"
+                    <a href="/admin_user/{{ $admin->id }}/delete" class="text-danger" data-toggle="tooltip"
                       data-placement="top" title="Delete">
                       <i class="fa-solid fa-trash"></i>
                     </a>
@@ -124,15 +124,15 @@
                     {{ $recommended_source->source_type }}
                   </div>
                   <div>
-                    <a href="/recommended_sources/{{ $recommended_source->id }}/edit" class="text-info me-2"
+                    <a href="/recommended_source/{{ $recommended_source->id }}" class="text-info me-2"
                       data-toggle="tooltip" data-placement="top" title="View">
                       <i class="fa-solid fa-eye"></i>
                     </a>
-                    <a href="/recommended_sources/{{ $recommended_source->id }}/edit" class="text-primary me-2"
+                    <a href="/recommended_source/{{ $recommended_source->id }}/edit" class="text-primary me-2"
                       data-toggle="tooltip" data-placement="top" title="Edit">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-                    <a href="/recommended_sources/{{ $recommended_source->id }}/delete" class="text-danger"
+                    <a href="/recommended_source/{{ $recommended_source->id }}/delete" class="text-danger"
                       data-toggle="tooltip" data-placement="top" title="Delete">
                       <i class="fa-solid fa-trash"></i>
                     </a>

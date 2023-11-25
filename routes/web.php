@@ -19,29 +19,29 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [UserController::class, 'showHomePage'])->middleware(('MustCreateProfile'));
 
-// user routes
-// get routes
+// guest routes
 Route::middleware('guest')->group(function () {
+  // user routes
+  // get routes
   Route::get('/login', [UserController::class, 'loginPage']);
   Route::get('/register', [UserController::class, 'registerPage']);
-});
-
-// post routes
-
-Route::middleware('guest')->group(function () {
+  // post routes
   Route::post('/login', [UserController::class, 'login']);
   Route::post('/register', [UserController::class, 'register']);
 });
-Route::post('/logout', [UserController::class, 'logout'])->middleware(('MustBeLoggedIn'));
 
-// profile routes
-// get routes
-Route::get('/create_profile', [ProfileController::class, 'showCreateProfilePage'])->middleware(array('MustBeLoggedIn', 'PreventProfileRecreation'));
-Route::get('/profile', [ProfileController::class, 'showProfilePage'])->middleware(array('MustBeLoggedIn', 'MustCreateProfile'));
+// auth routes
+Route::middleware(('MustBeLoggedIn'))->group(function () {
+  Route::post('/logout', [UserController::class, 'logout']);
+  
+  // profile routes
+  // get routes
+  Route::get('/create_profile', [ProfileController::class, 'showCreateProfilePage'])->middleware('PreventProfileRecreation');
+  // post routes
+  Route::post('/create_profile', [ProfileController::class, 'createProfile'])->middleware('PreventProfileRecreation');
 
-// post routes
-Route::post('/create_profile', [ProfileController::class, 'createProfile'])->middleware(array('MustBeLoggedIn', 'PreventProfileRecreation'));
-
+  Route::get('/profile', [ProfileController::class, 'showProfilePage'])->middleware('MustCreateProfile');
+});
 
 // admin routes
 Route::middleware('can:admin-access')->group(function () {
@@ -50,16 +50,16 @@ Route::middleware('can:admin-access')->group(function () {
   Route::get('/admin', [AdminController::class, 'showAdminPage']);
   // users routes
   Route::get('/create_user', [AdminController::class, 'showCreateUserPage']);
-  Route::get('/users/{user}', [AdminController::class, 'showUserPage']);
-  Route::get('/users/{user}/edit', [AdminController::class, 'showEditUserPage']);
+  Route::get('/user/{user}', [AdminController::class, 'showUserPage']);
+  Route::get('/user/{user}/edit', [AdminController::class, 'showEditUserPage']);
   // admin users routes
   Route::get('/create_admin_user', [AdminController::class, 'showCreateAdminUserPage']);
-  Route::get('/admin_users/{admin_user}', [AdminController::class, 'showAdminUserPage']);
-  Route::get('/admin_users/{admin_user}/edit', [AdminController::class, 'showEditAdminUserPage']);
+  Route::get('/admin_user/{admin_user}', [AdminController::class, 'showAdminUserPage']);
+  Route::get('/admin_user/{admin_user}/edit', [AdminController::class, 'showEditAdminUserPage']);
   // recommended sources routes
   Route::get('/create_recommended_source', [AdminController::class, 'showCreateRecommendedSourcePage']);
-  Route::get('/recommended_sources/{recommended_source}', [AdminController::class, 'showRecommendedSourcePage']);
-  Route::get('/recommended_sources/{recommended_source}/edit', [AdminController::class, 'showEditRecommendedSourcePage']);
+  Route::get('/recommended_source/{recommended_source}', [AdminController::class, 'showRecommendedSourcePage']);
+  Route::get('/recommended_source/{recommended_source}/edit', [AdminController::class, 'showEditRecommendedSourcePage']);
 
   // // post, put, delete routes
   Route::post('/create_user', [AdminController::class, 'createUser']);
