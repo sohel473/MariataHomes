@@ -54,4 +54,22 @@ class AdminController extends Controller
     public function showCreateRecommendedSourcePage() {
         return view('admin/recommendedSourceForm');
     }
+
+    public function createRecommendedSource(Request $request) {
+        // Validate the request
+        $validatedData = $request->validate([
+            'source_type' => 'required|in:police,prison,immigration',
+            'source_address' => 'required|string|max:255',
+        ]);
+    
+        // Create a new recommended source record
+        $recommendedSource = RecommendedSource::create([
+            'source_type' => $validatedData['source_type'],
+            'source_address' => $validatedData['source_address'],
+        ]);
+    
+        // Redirect to back with success message
+        return redirect('/admin')->with('success', 'Recommended Source created successfully.');
+    }
+    
 }

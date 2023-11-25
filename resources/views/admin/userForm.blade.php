@@ -107,6 +107,36 @@
                   @enderror
                 </div>
 
+                <!-- Recommended Source Type -->
+                <div class="col-12">
+                  <label for="source_type" class="form-label">Recommended Source Type</label>
+                  <select name="source_type" class="form-control" id="source_type">
+                    <option value="">Choose...</option>
+                    <option value="police">Police</option>
+                    <option value="prison">Prison</option>
+                    <option value="immigration">Immigration</option>
+                  </select>
+                  @error('source_type')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                </div>
+
+                <!-- Recommended Source Address -->
+                <div class="col-12">
+                  <label for="source_address" class="form-label">Recommended Source Address</label>
+                  <select name="source_address" class="form-control" id="source_address">
+                    <option value="">Select Address...</option>
+                    {{-- @foreach ($source_addresses as $address)
+                      <option value="{{ $address }}" {{ old('source_address') == $address ? 'selected' : '' }}>
+                        {{ $address }}
+                      </option>
+                    @endforeach --}}
+                  </select>
+                  @error('source_address')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                </div>
+
 
                 <!-- Submit Button -->
                 <div class="col-12 mt-3">

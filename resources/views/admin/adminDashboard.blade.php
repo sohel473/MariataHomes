@@ -120,14 +120,13 @@
               @foreach ($recommended_sources as $recommended_source)
                 <div class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
                   <div>
-                    <strong style="color: blue;">{{ $recommended_source->source_address }}</strong> of type
-                    {{ $recommended_source->source_type }}
+                    <strong style="color: blue;">{{ $recommended_source->source_address }}</strong>
                   </div>
                   <div>
-                    <a href="/recommended_source/{{ $recommended_source->id }}" class="text-info me-2"
+                    {{-- <a href="/recommended_source/{{ $recommended_source->id }}" class="text-info me-2"
                       data-toggle="tooltip" data-placement="top" title="View">
                       <i class="fa-solid fa-eye"></i>
-                    </a>
+                    </a> --}}
                     <a href="/recommended_source/{{ $recommended_source->id }}/edit" class="text-primary me-2"
                       data-toggle="tooltip" data-placement="top" title="Edit">
                       <i class="fa-solid fa-pen-to-square"></i>
