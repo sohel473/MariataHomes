@@ -40,14 +40,14 @@ class AdminController extends Controller
     }
 
     public function showCreateUserPage() {
-        return view('admin/createUser');
+        return view('admin/userForm');
     }
 
     public function showCreateAdminUserPage() {
-        return view('admin/createAdminUser');
+        return view('admin/adminUserForm');
     }
 
     public function showCreateRecommendedSourcePage() {
-        return view('admin/createRecommendedSource');
+        return view('admin/recommendedSourceForm');
     }
 }
