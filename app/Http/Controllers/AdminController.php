@@ -53,6 +53,9 @@ class AdminController extends Controller
         $recommendedSources = RecommendedSource::all()->groupBy('source_type');
         return view('admin/userForm',[
             'recommendedSources' => $recommendedSources,
+            'selectedSourceType' => null, // Default value for creating user
+            'selectedSourceAddress' => null, // Default value for creating user
+            'passportPhotographUrl' => null, // Default value for creating user
         ]);
     }
 

@@ -103,9 +103,9 @@
                 </div>
 
                 <!-- Passport Photograph Input and Display -->
-                <div class="row mt-3 ml-1">
+                <div class="row {{ isset($passportPhotographUrl) ? 'mt-3 ml-1' : 'col-12' }} ">
                   <!-- File Input Column -->
-                  <div class="col-md-6 mt-5">
+                  <div class="{{ isset($passportPhotographUrl) ? 'col-md-6' : 'col-12' }}">
                     <label for="passport_photograph" class="form-label">Passport Photograph</label>
                     <input type="file" name="passport_photograph" class="form-control-file" id="passport_photograph">
                     @error('passport_photograph')
@@ -144,13 +144,14 @@
                   @enderror
                 </div>
 
-                <!-- Recommended Source Type -->
+                {{-- Recommended Source Type --}}
                 <div class="col-12">
                   <label for="source_type" class="form-label">Recommended Source Type</label>
                   <select name="source_type" class="form-control" id="source_type">
                     <option value="">Choose...</option>
                     @foreach ($recommendedSources as $type => $sources)
-                      <option value="{{ $type }}" {{ $selectedSourceType == $type ? 'selected' : '' }}>
+                      <option value="{{ $type }}"
+                        {{ isset($selectedSourceType) && $selectedSourceType == $type ? 'selected' : '' }}>
                         {{ ucfirst($type) }}
                       </option>
                     @endforeach
@@ -160,7 +161,7 @@
                   @enderror
                 </div>
 
-                <!-- Recommended Source Address -->
+                {{-- Recommended Source Address --}}
                 <div class="col-12">
                   <label for="source_address" class="form-label">Recommended Source Address</label>
                   <select name="source_address" class="form-control" id="source_address">
@@ -168,7 +169,7 @@
                     @if (isset($selectedSourceType) && isset($recommendedSources[$selectedSourceType]))
                       @foreach ($recommendedSources[$selectedSourceType] as $source)
                         <option value="{{ $source->source_address }}"
-                          {{ $selectedSourceAddress == $source->source_address ? 'selected' : '' }}>
+                          {{ isset($selectedSourceAddress) && $selectedSourceAddress == $source->source_address ? 'selected' : '' }}>
                           {{ $source->source_address }}
                         </option>
                       @endforeach
@@ -178,7 +179,6 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
-
 
                 <!-- Submit Button -->
                 <div class="col-12 mt-3">
