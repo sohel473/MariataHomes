@@ -4,7 +4,7 @@
     <div class="col-lg-4 col-md-4">
       <div class="label">Passport Photograph</div>
       <div>
-        <img src={{ $passport_photograph }} alt="Passport Photograph" style="max-height: 250px;">
+        <img src={{ $passport_photograph }} alt="Passport Photograph" style="max-width: 350px; max-height: 350px;">
       </div>
     </div>
 

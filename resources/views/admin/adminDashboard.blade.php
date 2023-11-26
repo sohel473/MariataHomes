@@ -60,10 +60,16 @@
                       data-placement="top" title="Edit">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-                    <a href="/user/{{ $client->id }}/delete" class="text-danger" data-toggle="tooltip"
-                      data-placement="top" title="Delete">
+                    <a href="javascript:void(0);" onclick="confirmClientDelete('/user/{{ $client->id }}')"
+                      class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete">
                       <i class="fa-solid fa-trash"></i>
                     </a>
+                    <!-- Hidden Delete Form for Clients -->
+                    <form id="client-delete-form" action="" method="POST" style="display: none;">
+                      @csrf
+                      @method('DELETE')
+                    </form>
+
                   </div>
                 </div>
               @endforeach
@@ -157,10 +163,10 @@
   </div>
 
   <script>
-    // Recommended Source Delete Confirmation
-    function confirmSourceDelete(deleteUrl) {
-      if (confirm("Are you sure you want to delete this source?")) {
-        var form = document.getElementById('delete-form');
+    // Client Delete Confirmation
+    function confirmClientDelete(deleteUrl) {
+      if (confirm("Are you sure you want to delete this client?")) {
+        var form = document.getElementById('client-delete-form');
         form.action = deleteUrl;
         form.submit();
       }
@@ -170,6 +176,15 @@
     function confirmAdminDelete(deleteUrl) {
       if (confirm("Are you sure you want to delete this admin user?")) {
         var form = document.getElementById('admin-delete-form');
+        form.action = deleteUrl;
+        form.submit();
+      }
+    }
+
+    // Recommended Source Delete Confirmation
+    function confirmSourceDelete(deleteUrl) {
+      if (confirm("Are you sure you want to delete this source?")) {
+        var form = document.getElementById('delete-form');
         form.action = deleteUrl;
         form.submit();
       }

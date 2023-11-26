@@ -124,7 +124,8 @@
                   <!-- File Input Column -->
                   <div class="{{ isset($passportPhotographUrl) ? 'col-md-6' : 'col-12' }}">
                     <label for="passport_photograph" class="form-label">Passport Photograph</label>
-                    <input type="file" name="passport_photograph" class="form-control-file" id="passport_photograph">
+                    <input type="file" name="passport_photograph" class="form-control-file" id="passport_photograph"
+                      {{ !isset($user) ? 'required' : '' }}>
                     @error('passport_photograph')
                       <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -199,7 +200,9 @@
 
                 <!-- Submit Button -->
                 <div class="col-12 mt-3">
-                  <button class="btn btn-primary w-100" type="submit">Create User</button>
+                  <button class="btn btn-primary w-100" type="submit">
+                    {{ isset($user) ? 'Update' : 'Create' }} User
+                  </button>
                 </div>
               </form>
             </div>

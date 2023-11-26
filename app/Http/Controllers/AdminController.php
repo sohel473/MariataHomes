@@ -5,6 +5,7 @@ use App\Models\User;
 use App\Models\RecommendedSource;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
 {
@@ -19,6 +20,8 @@ class AdminController extends Controller
     
             // Store the file in the 'public/passports' directory
             $request->passport_photograph->storeAs('passports', $filename, 'public');
+
+            Log::info("Filename: " . $filename);
     
             return $filename;
         }  
@@ -253,5 +256,73 @@ class AdminController extends Controller
         // Redirect back with a success message
         return redirect('/admin')->with('success', 'User created successfully.');
     
+    }
+
+    public function editUser(Request $request, User $user) {
+        // Validate the request data
+        $validatedUserData = $request->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $user->id],
+            'email' => ['max:255'],
+            // Add validation rules for profile fields
+            'first_name' => ['required', 'min:3', 'max:255'],
+            'last_name' => ['required', 'min:3', 'max:255'],
+            'date_of_birth' => ['required', 'date'],
+            'telephone' => ['max:15'],
+            'next_of_kin' => ['max:255'],
+            'any_illness' => ['max:255'],
+            'last_residence_address' => ['max:255'],
+            'source_type' => ['required', 'string'],
+            'source_address' => ['required', 'string'],
+        ]);
+    
+        // Update the user record
+        $user->update([
+            'username' => $validatedUserData['username'],
+            'email' => $validatedUserData['email'],
+            // Only update password if it's provided
+            'password' => $request->filled('password') ? bcrypt($request->password) : $user->password,
+        ]);
+
+        // Query the recommended source by type and address
+        $recommendedSource = RecommendedSource::where('source_type', $request->source_type)
+                                               ->where('source_address', $request->source_address)
+                                               ->first();
+    
+        // Check if a matching recommended source was found
+        if (!$recommendedSource) {
+            return back()->withErrors(['source_address' => 'Invalid recommended source address.'])->withInput();
+        }
+    
+        // Handle passport photograph upload
+        $passportPhotograph = $this->handlePassPortPhotograph($request, $user);
+    
+        // Update or create the profile
+        $user->profile()->updateOrCreate(
+            ['user_id' => $user->id],
+            [
+                'first_name' => $request->first_name,
+                'last_name' => $request->last_name, 
+                'date_of_birth' => $request->date_of_birth,
+                'telephone' => $request->telephone,
+                'next_of_kin' => $request->next_of_kin,
+                'passport_photograph' => $passportPhotograph ?:$user->profile->getRawOriginal('passport_photograph'),
+                'any_illness' => $request->any_illness,
+                'last_residence_address' => $request->last_residence_address,
+                'recommended_source_id' => $recommendedSource->id,
+            ]
+        );
+    
+        // Redirect back with a success message
+        return redirect('/admin')->with('success', 'User updated successfully.');
+    }
+    
+
+
+    public function deleteUser(User $user) {
+        // Delete the user record
+        $user->delete();
+    
+        // Redirect back with a success message
+        return redirect('/admin')->with('success', 'User deleted successfully.');
     }
 }
