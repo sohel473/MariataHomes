@@ -138,5 +138,51 @@ class AdminController extends Controller
         // Redirect back with a success message
         return redirect('/admin')->with('success', 'Recommended Source deleted successfully.');
     }
+
+    public function createAdminUser(Request $request) {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'email' => ['max:255'],
+            'password' => ['required', 'string', 'min:5', 'confirmed'],
+        ]);
     
+        // Create the new admin user
+        User::create([
+            'username' => $validatedData['username'],
+            'email' => $validatedData['email'],
+            'password' => bcrypt($validatedData['password']),
+            'role' => 'admin',
+        ]);
+    
+        // Redirect back with a success message
+        return redirect('/admin')->with('success', 'Admin User created successfully.');
+    }
+    
+    public function editAdminUser(Request $request, User $admin_user) {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:users,username,' . $admin_user->id],
+            'email' => ['max:255'],
+            'password' => ['nullable', 'string', 'min:5', 'confirmed'],
+        ]);
+    
+        // Update the admin user record
+        $admin_user->update([
+            'username' => $validatedData['username'],
+            'email' => $validatedData['email'],
+            'password' => $validatedData['password'] ? bcrypt($validatedData['password']) : $admin_user->password,
+        ]);
+    
+        // Redirect back with a success message
+        return redirect('/admin')->with('success', 'Admin User updated successfully.');
+    }
+
+    public function deleteAdminUser(User $admin_user) {
+        // Delete the admin user record
+        $admin_user->delete();
+    
+        // Redirect back with a success message
+        return redirect('/admin')->with('success', 'Admin User deleted successfully.');
+    }
 }

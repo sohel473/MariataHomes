@@ -33,15 +33,34 @@
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
                 <!-- Email -->
                 <div class="col-12">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" value="{{ isset($admin_user) ? $admin_user->email : old('email') }}"
-                    name="email" class="form-control" id="email" required>
+                    name="email" class="form-control" id="email">
                   @error('email')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
                 </div>
+
+                <!-- Password -->
+                <div class="col-12">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" name="password" class="form-control" id="password"
+                    {{ !isset($admin_user) ? 'required' : '' }}>
+                  @error('password')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="col-12">
+                  <label for="password_confirmation" class="form-label">Confirm Password</label>
+                  <input type="password" name="password_confirmation" class="form-control" id="password_confirmation"
+                    {{ !isset($admin_user) ? 'required' : '' }}>
+                </div>
+
                 <!-- Submit Button -->
                 <div class="col-12 mt-3">
                   <button class="btn btn-primary w-100" type="submit">

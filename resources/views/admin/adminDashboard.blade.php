@@ -96,10 +96,17 @@
                       data-placement="top" title="Edit">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-                    <a href="/admin_user/{{ $admin->id }}/delete" class="text-danger" data-toggle="tooltip"
-                      data-placement="top" title="Delete">
-                      <i class="fa-solid fa-trash"></i>
-                    </a>
+                    @if (auth()->user()->id !== $admin->id)
+                      <a href="javascript:void(0);" onclick="confirmAdminDelete('/admin_user/{{ $admin->id }}')"
+                        class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete">
+                        <i class="fa-solid fa-trash"></i>
+                      </a>
+                    @endif
+                    <!-- Hidden Delete Form for Admin Users -->
+                    <form id="admin-delete-form" action="" method="POST" style="display: none;">
+                      @csrf
+                      @method('DELETE')
+                    </form>
                   </div>
                 </div>
               @endforeach
@@ -130,7 +137,7 @@
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a>
                     <a href="javascript:void(0);"
-                      onclick="confirmDelete('/recommended_source/{{ $recommended_source->id }}')"
+                      onclick="confirmSourceDelete('/recommended_source/{{ $recommended_source->id }}')"
                       class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete">
                       <i class="fa-solid fa-trash"></i>
                     </a>
@@ -150,9 +157,19 @@
   </div>
 
   <script>
-    function confirmDelete(deleteUrl) {
+    // Recommended Source Delete Confirmation
+    function confirmSourceDelete(deleteUrl) {
       if (confirm("Are you sure you want to delete this source?")) {
         var form = document.getElementById('delete-form');
+        form.action = deleteUrl;
+        form.submit();
+      }
+    }
+
+    // Admin User Delete Confirmation
+    function confirmAdminDelete(deleteUrl) {
+      if (confirm("Are you sure you want to delete this admin user?")) {
+        var form = document.getElementById('admin-delete-form');
         form.action = deleteUrl;
         form.submit();
       }
