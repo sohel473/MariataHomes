@@ -114,5 +114,29 @@ class AdminController extends Controller
         ]);
     }
     
+    public function editRecommendedSource(Request $request, RecommendedSource $recommended_source) {
+        // Validate the request data
+        $validatedData = $request->validate([
+            'source_type' => 'required|in:police,prison,immigration',
+            'source_address' => 'required|string|max:255',
+        ]);
+    
+        // Update the recommended source record
+        $recommended_source->update([
+            'source_type' => $validatedData['source_type'],
+            'source_address' => $validatedData['source_address'],
+        ]);
+    
+        // Redirect back with a success message
+        return redirect('/admin')->with('success', 'Recommended Source updated successfully.');
+    }
+
+    public function deleteRecommendedSource(RecommendedSource $recommended_source) {
+        // Delete the recommended source record
+        $recommended_source->delete();
+    
+        // Redirect back with a success message
+        return redirect('/admin')->with('success', 'Recommended Source deleted successfully.');
+    }
     
 }

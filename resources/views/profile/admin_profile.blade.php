@@ -24,7 +24,7 @@
 
           <!-- Links or Actions -->
           <div class="mb-3">
-            <a href="/edit-profile" class="btn btn-warning">Edit Profile</a>
+            <a href="/admin_user/{{ auth()->user()->id }}/edit" class="btn btn-warning">Edit Profile</a>
           </div>
         </div>
       </div>

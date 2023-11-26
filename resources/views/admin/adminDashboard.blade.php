@@ -129,10 +129,16 @@
                       data-toggle="tooltip" data-placement="top" title="Edit">
                       <i class="fa-solid fa-pen-to-square"></i>
                     </a>
-                    <a href="/recommended_source/{{ $recommended_source->id }}/delete" class="text-danger"
-                      data-toggle="tooltip" data-placement="top" title="Delete">
+                    <a href="javascript:void(0);"
+                      onclick="confirmDelete('/recommended_source/{{ $recommended_source->id }}')"
+                      class="text-danger" data-toggle="tooltip" data-placement="top" title="Delete">
                       <i class="fa-solid fa-trash"></i>
                     </a>
+                    <!-- Hidden Delete Form -->
+                    <form id="delete-form" action="" method="POST" style="display: none;">
+                      @csrf
+                      @method('DELETE')
+                    </form>
                   </div>
                 </div>
               @endforeach
@@ -141,6 +147,16 @@
         </div>
       </div>
     </div>
-
   </div>
+
+  <script>
+    function confirmDelete(deleteUrl) {
+      if (confirm("Are you sure you want to delete this source?")) {
+        var form = document.getElementById('delete-form');
+        form.action = deleteUrl;
+        form.submit();
+      }
+    }
+  </script>
+
 </x-layout>
