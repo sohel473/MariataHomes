@@ -4,9 +4,26 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\RecommendedSource;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
+
+    function handlePassPortPhotograph(Request $request, User $user) {
+        if ($request->hasFile('passport_photograph')) {
+
+            // Generate the custom filename
+            $filename = $user->id . '_' . $user->username . '_' . time() . '.' . $request->passport_photograph->extension();
+    
+            // Log::info("Filename: " . $filename);
+    
+            // Store the file in the 'public/passports' directory
+            $request->passport_photograph->storeAs('passports', $filename, 'public');
+    
+            return $filename;
+        }  
+    }
+
     public function showAdminPage() {
         // Get all clients
         $clients = User::where('role', 'client')->whereHas('profile')->get();
@@ -184,5 +201,57 @@ class AdminController extends Controller
     
         // Redirect back with a success message
         return redirect('/admin')->with('success', 'Admin User deleted successfully.');
+    }
+
+    public function createUser(Request $request) {
+        // Validate the request data
+        $validatedUserData = $request->validate([
+            'username' => ['required', 'string', 'max:255', 'unique:users'],
+            'email' => ['max:255'],
+            'password' => ['required', 'string', 'min:5', 'confirmed'],
+            // Add validation rules for profile fields
+            'first_name' => ['required', 'min:3', 'max:255'],
+            'last_name' => ['required', 'min:3', 'max:255'],
+            'date_of_birth' => ['required', 'date'],
+            'telephone' => ['max:15'],
+            'next_of_kin' => ['max:255'],
+            'any_illness' => ['max:255'],
+            'last_residence_address' => ['max:255'],
+            'source_type' => ['required', 'string'],
+            'source_address' => ['required', 'string'],
+        ]);
+
+        // Query the recommended source by type and address
+        $recommendedSource = RecommendedSource::where('source_type', $request->source_type)
+                                               ->where('source_address', $request->source_address)
+                                               ->first();
+    
+        // Check if a matching recommended source was found
+        if (!$recommendedSource) {
+            return back()->withErrors(['source_address' => 'Invalid recommended source address.'])->withInput();
+        }
+
+        // Create the new user
+        $user = User::create([
+            'username' => $validatedUserData['username'],
+            'email' => $validatedUserData['email'],
+            'password' => bcrypt($validatedUserData['password']),
+        ]);
+
+        $user->profile()->create([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name, 
+            'date_of_birth' => $request->date_of_birth,
+            'telephone' => $request->telephone,
+            'next_of_kin' => $request->next_of_kin,
+            'passport_photograph' => $this->handlePassPortPhotograph($request, $user),
+            'any_illness' => $request->any_illness,
+            'last_residence_address' => $request->last_residence_address,
+            'recommended_source_id' => $recommendedSource->id,
+        ]);
+
+        // Redirect back with a success message
+        return redirect('/admin')->with('success', 'User created successfully.');
+    
     }
 }

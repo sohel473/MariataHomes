@@ -39,10 +39,27 @@
                 <div class="col-12">
                   <label for="email" class="form-label">Email</label>
                   <input type="email" value="{{ isset($user) ? $user->email : old('email') }}" name="email"
-                    class="form-control" id="email" required>
+                    class="form-control" id="email">
                   @error('email')
                     <span class="text-danger">{{ $message }}</span>
                   @enderror
+                </div>
+
+                <!-- Password -->
+                <div class="col-12">
+                  <label for="password" class="form-label">Password</label>
+                  <input type="password" name="password" class="form-control" id="password"
+                    {{ !isset($user) ? 'required' : '' }}>
+                  @error('password')
+                    <span class="text-danger">{{ $message }}</span>
+                  @enderror
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="col-12">
+                  <label for="password_confirmation" class="form-label">Confirm Password</label>
+                  <input type="password" name="password_confirmation" class="form-control" id="password_confirmation"
+                    {{ !isset($user) ? 'required' : '' }}>
                 </div>
 
                 <!-- Additional fields similar to the 'create_profile' form -->
