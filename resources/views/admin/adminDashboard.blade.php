@@ -10,23 +10,26 @@
     </div>
 
     <!-- Nav Pills -->
-    <div class="d-flex justify-content-center mb-3">
+    <div class="d-flex justify-content-center">
       <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
         <li class="nav-item">
-          <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
-            aria-controls="pills-home" aria-selected="true">
+          <a class="nav-link {{ $activeTab == 'clients' ? 'active' : '' }}" id="pills-home-tab" data-toggle="pill"
+            href="#pills-home" role="tab" aria-controls="pills-home"
+            aria-selected="{{ $activeTab == 'clients' ? 'true' : 'false' }}">
             Clients: {{ $clients->count() }}
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
-            aria-controls="pills-profile" aria-selected="false">
+          <a class="nav-link {{ $activeTab == 'admins' ? 'active' : '' }}" id="pills-profile-tab" data-toggle="pill"
+            href="#pills-profile" role="tab" aria-controls="pills-profile"
+            aria-selected="{{ $activeTab == 'admins' ? 'true' : 'false' }}">
             Admins: {{ $admins->count() }}
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab"
-            aria-controls="pills-contact" aria-selected="false">
+          <a class="nav-link {{ $activeTab == 'recommended_sources' ? 'active' : '' }}" id="pills-contact-tab"
+            data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact"
+            aria-selected="{{ $activeTab == 'recommended_sources' ? 'true' : 'false' }}">
             Recommendation Sources: {{ $recommended_sources->count() }}
           </a>
         </li>
@@ -37,10 +40,18 @@
     <!-- Tab Content -->
     <div class="tab-content" id="pills-tabContent">
       <!-- Clients Tab -->
-      <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
+      <div class="tab-pane fade {{ $activeTab == 'clients' ? 'show active' : '' }}" id="pills-home" role="tabpanel"
+        aria-labelledby="pills-home-tab">
         <!-- Add Client Button -->
         <div class="text-center">
-          <a href="/create_user" class="btn btn-sm btn-outline-primary mb-3">Add Client</a>
+          <a href="/create_user" class="btn btn-sm btn-outline-primary mb-2">Add Client</a>
+        </div>
+        <div class="text-center">
+          <form action="/admin" method="GET">
+            <input type="text" name="client_search" class="form-control d-inline-block mb-2" style="width: 50%;"
+              placeholder="Search Clients by username, telephone">
+            <button type="submit" class="btn btn-sm btn-primary">Search</button>
+          </form>
         </div>
         <div class="row">
           <div class="col-lg-8 mx-auto">
@@ -79,10 +90,18 @@
       </div>
 
       <!-- Admins Tab -->
-      <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
+      <div class="tab-pane fade {{ $activeTab == 'admins' ? 'show active' : '' }}" id="pills-profile" role="tabpanel"
+        aria-labelledby="pills-profile-tab">
         <!-- Add Admin Button -->
         <div class="text-center">
-          <a href="/create_admin_user" class="btn btn-sm btn-outline-primary mb-3">Add Admin</a>
+          <a href="/create_admin_user" class="btn btn-sm btn-outline-primary mb-2">Add Admin</a>
+        </div>
+        <div class="text-center">
+          <form action="/admin" method="GET">
+            <input type="text" name="admin_search" class="form-control d-inline-block mb-2" style="width: 50%;"
+              placeholder="Search Admin by username">
+            <button type="submit" class="btn btn-sm btn-primary">Search</button>
+          </form>
         </div>
         <div class="row">
           <div class="col-lg-8 mx-auto">
@@ -122,10 +141,18 @@
       </div>
 
       <!-- Recommended Sources Tab -->
-      <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+      <div class="tab-pane fade {{ $activeTab == 'recommended_sources' ? 'show active' : '' }}" id="pills-contact"
+        role="tabpanel" aria-labelledby="pills-contact-tab">
         <!-- Add Source Button -->
         <div class="text-center">
-          <a href="/create_recommended_source" class="btn btn-sm btn-outline-primary mb-3">Add Source</a>
+          <a href="/create_recommended_source" class="btn btn-sm btn-outline-primary mb-2">Add Source</a>
+          <div class="text-center">
+            <form action="/admin" method="GET">
+              <input type="text" name="recommended_source_search" class="form-control d-inline-block mb-2"
+                style="width: 50%;" placeholder="Search Recommended Sources by type, address">
+              <button type="submit" class="btn btn-sm btn-primary">Search</button>
+            </form>
+          </div>
         </div>
         <div class="row">
           <div class="col-lg-8 mx-auto">

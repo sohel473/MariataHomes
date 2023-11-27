@@ -48,6 +48,7 @@ Route::middleware('can:admin-access')->group(function () {
   // get routes
   // admin routes
   Route::get('/admin', [AdminController::class, 'showAdminPage']);
+
   // users routes
   Route::get('/create_user', [AdminController::class, 'showCreateUserPage']);
   Route::get('/user/{user}', [AdminController::class, 'showUserPage']);
@@ -73,6 +74,7 @@ Route::middleware('can:admin-access')->group(function () {
   Route::delete('/user/{user}', [AdminController::class, 'deleteUser']);
   Route::delete('/admin_user/{admin_user}', [AdminController::class, 'deleteAdminUser']);
   Route::delete('/recommended_source/{recommended_source}', [AdminController::class, 'deleteRecommendedSource']);
+
 });
 
 

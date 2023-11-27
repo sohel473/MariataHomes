@@ -27,17 +27,62 @@ class AdminController extends Controller
         }  
     }
 
-    public function showAdminPage() {
-        // Get all clients
-        $clients = User::where('role', 'client')->whereHas('profile')->get();
-        // get all admins
-        $admins = User::where('role', 'admin')->get();
-        // get all recommended sources
-        $recommended_sources = RecommendedSource::all();
+    public function showAdminPage(Request $request) {
+
+        $activeTab = 'clients';
+
+        // Search for clients
+        if ($request->has('client_search') && !empty($request->client_search)) {
+            $searchTerm = $request->input('client_search');
+            $clients = User::where('role', 'client')
+                            ->where(function ($query) use ($searchTerm) {
+                                $query->whereHas('profile', function ($q) use ($searchTerm) {
+                                    $q->where('first_name', 'LIKE', '%' . $searchTerm . '%')
+                                      ->orWhere('last_name', 'LIKE', '%' . $searchTerm . '%')
+                                      ->orWhere('telephone', 'LIKE', '%' . $searchTerm . '%');
+                                })
+                                ->orWhere(function ($q) use ($searchTerm) {
+                                    $q->where('username', 'LIKE', '%' . $searchTerm . '%');
+                                });
+                            })
+                            ->get();
+        } else {
+            // Get all clients
+            $clients = User::where('role', 'client')->whereHas('profile')->get();
+        }
+
+        // Search for admins if a search term is provided, otherwise get all admins
+        if ($request->has('admin_search')) {
+            $activeTab = 'admins';
+            $searchTerm = $request->input('admin_search');
+            $admins = User::where('role', 'admin')
+                        ->where(function($query) use ($searchTerm) {
+                            $query->where('username', 'LIKE', '%' . $searchTerm . '%')
+                                    ->orWhere('email', 'LIKE', '%' . $searchTerm . '%');
+                        })
+                        ->get();
+        } else {
+            // Get all admins
+            $admins = User::where('role', 'admin')->get();
+        }
+
+        // Search for recommended sources if a search term is provided, otherwise get all recommended sources
+        if ($request->has('recommended_source_search')) {
+            $activeTab = 'recommended_sources';
+            $searchTerm = $request->input('recommended_source_search');
+            $recommended_sources = RecommendedSource::where('source_type', 'LIKE', '%' . $searchTerm . '%')
+                                                    ->orWhere('source_address', 'LIKE', '%' . $searchTerm . '%')
+                                                    ->get();
+        } else {
+            // Get all recommended sources
+            $recommended_sources = RecommendedSource::all();
+        }
+
         return view('admin/adminDashboard', [
             'clients' => $clients,
             'admins' => $admins,
             'recommended_sources' => $recommended_sources,
+            'activeTab' => $activeTab,
         ]);
     }
 
@@ -316,8 +361,6 @@ class AdminController extends Controller
         return redirect('/admin')->with('success', 'User updated successfully.');
     }
     
-
-
     public function deleteUser(User $user) {
         // Delete the user record
         $user->delete();
