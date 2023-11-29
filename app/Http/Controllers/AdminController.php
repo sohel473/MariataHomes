@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\RecommendedSource;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class AdminController extends Controller
@@ -368,4 +368,33 @@ class AdminController extends Controller
         // Redirect back with a success message
         return redirect('/admin')->with('success', 'User deleted successfully.');
     }
+
+    public function downloadClientsReport() {
+        $clients = User::where('role', 'client')
+                       ->whereHas('profile')
+                       ->with('profile')
+                       ->get(); // Fetch all clients with their profiles
+    
+        $pdf = PDF::loadView('pdf.client_report', compact('clients'));
+    
+        return $pdf->download('client_report.pdf');
+    }
+    
+
+    public function downloadAdminUsersReport() {
+        $admins = User::where('role', 'admin')->get(); // Fetch all admin users
+    
+        $pdf = PDF::loadView('pdf.admin_report', compact('admins'));
+    
+        return $pdf->download('admin_report.pdf');
+    }
+
+    public function downloadRecommendedSourcesReport() {
+        $recommendedSources = RecommendedSource::all(); // Fetch all recommended sources
+    
+        $pdf = PDF::loadView('pdf.sources_report', compact('recommendedSources'));
+    
+        return $pdf->download('sources_report.pdf');
+    }
+    
 }

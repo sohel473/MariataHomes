@@ -49,6 +49,11 @@ Route::middleware('can:admin-access')->group(function () {
   // admin routes
   Route::get('/admin', [AdminController::class, 'showAdminPage']);
 
+  Route::get('/admin/download_clients_report', [AdminController::class, 'downloadClientsReport'])->name('admin.download_clients_report');
+  Route::get('/admin/download_admin_users_report', [AdminController::class, 'downloadAdminUsersReport'])->name('admin.download_admins_report');
+  Route::get('/admin/download_recommended_sources_report', [AdminController::class, 'downloadRecommendedSourcesReport'])->name('admin.download_sources_report');
+
+
   // users routes
   Route::get('/create_user', [AdminController::class, 'showCreateUserPage']);
   Route::get('/user/{user}', [AdminController::class, 'showUserPage']);

@@ -45,6 +45,9 @@
         <!-- Add Client Button -->
         <div class="text-center">
           <a href="/create_user" class="btn btn-sm btn-outline-primary mb-2">Add Client</a>
+          <a href="{{ route('admin.download_clients_report') }}" class="btn btn-sm btn-outline-success mb-2">Download
+            Clients
+            Report</a>
         </div>
         <div class="text-center">
           <form action="/admin" method="GET">
@@ -95,6 +98,9 @@
         <!-- Add Admin Button -->
         <div class="text-center">
           <a href="/create_admin_user" class="btn btn-sm btn-outline-primary mb-2">Add Admin</a>
+          <a href="{{ route('admin.download_admins_report') }}" class="btn btn-sm btn-outline-success mb-2">Download
+            Admins
+            Report</a>
         </div>
         <div class="text-center">
           <form action="/admin" method="GET">
@@ -146,6 +152,9 @@
         <!-- Add Source Button -->
         <div class="text-center">
           <a href="/create_recommended_source" class="btn btn-sm btn-outline-primary mb-2">Add Source</a>
+          <a href="{{ route('admin.download_sources_report') }}" class="btn btn-sm btn-outline-success mb-2">Download
+            Sources
+            Report</a>
           <div class="text-center">
             <form action="/admin" method="GET">
               <input type="text" name="recommended_source_search" class="form-control d-inline-block mb-2"
