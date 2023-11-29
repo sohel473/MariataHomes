@@ -358,7 +358,7 @@ class AdminController extends Controller
         );
     
         // Redirect back with a success message
-        return redirect('/admin')->with('success', 'User updated successfully.');
+        return redirect('/user/'. $user->id)->with('success', 'User updated successfully.');
     }
     
     public function deleteUser(User $user) {

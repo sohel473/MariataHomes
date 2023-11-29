@@ -101,7 +101,7 @@ class AdminControllerTest extends TestCase
             'source_address' => '123 Main St',
         ]);
 
-        $response->assertRedirect('/admin');
+        $response->assertRedirect('/user/' . $user->id);
         $this->assertDatabaseHas('users', ['id' => $user->id, 'email' => $newEmail]);
     }
 
