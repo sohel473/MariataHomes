@@ -81,8 +81,3 @@ Route::middleware('can:admin-access')->group(function () {
   Route::delete('/recommended_source/{recommended_source}', [AdminController::class, 'deleteRecommendedSource']);
 
 });
-
-
-
-
-
