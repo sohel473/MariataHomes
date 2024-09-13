@@ -4,6 +4,11 @@ This project is a web-based application designed for Mariata Homes, a charity or
 
 ### Note that this project was created for a university coursework and is not intended for commercial use.
 
+## Coursework PDF
+
+The coursework for this project can be found [here](https://github.com/sohel473/MariataHomes/blob/main/public/CourseWork_COMP1430_001287370.pdf).
+
+
 ## Features
 
 ### User Registration & Information Submission
@@ -89,6 +94,3 @@ Follow the steps below to set up the project on your local machine:
 6. **Access the application:**
    Open your browser and navigate to `http://localhost:8000`.
 
-## Coursework PDF
-
-The coursework for this project can be found (Public/CourseWork_COMP1430_001287370) [here](http://localhost:8000/coursework.pdf).
