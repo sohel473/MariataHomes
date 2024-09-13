@@ -380,7 +380,6 @@ class AdminController extends Controller
         return $pdf->download('client_report.pdf');
     }
     
-
     public function downloadAdminUsersReport() {
         $admins = User::where('role', 'admin')->get(); // Fetch all admin users
     
